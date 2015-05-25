@@ -22,7 +22,7 @@ public class GenerateJavaModel {
     }
 
 
-    public static void execute(String packageName) throws Exception {
+    public static void execute(String packageName, String path) throws Exception {
 
         for (DBTableBean dbTableBean : MainThread.dbTableBeans) {
 
@@ -39,7 +39,7 @@ public class GenerateJavaModel {
 
             //类名
             stringBuffer.append("public class ");
-            stringBuffer.append(UpperToFirst(LineToUpper(dbTableBean.getTableName())));
+            stringBuffer.append(MainUtil.UpperToFirst(MainUtil.LineToUpper(dbTableBean.getTableName())));
             stringBuffer.append(" {\n\n");
 
             List<String> columnName = dbTableBean.getColumnName();
@@ -52,7 +52,7 @@ public class GenerateJavaModel {
                 stringBuffer.append("\tprivate ");
                 stringBuffer.append(columnType.get(i));
                 stringBuffer.append(" ");
-                stringBuffer.append(LineToUpper(columnName.get(i)));
+                stringBuffer.append(MainUtil.LineToUpper(columnName.get(i)));
                 stringBuffer.append("; ");
                 stringBuffer.append("//");
                 stringBuffer.append(columnRemarks.get(i).replaceAll("\\s*|\\t|\\r|\\n", ""));
@@ -82,100 +82,36 @@ public class GenerateJavaModel {
                 stringBuffer.append("\tpublic ");
                 stringBuffer.append(columnType.get(j));
                 stringBuffer.append(" get");
-                stringBuffer.append(UpperToFirst(LineToUpper(columnName.get(j))));
+                stringBuffer.append(MainUtil.UpperToFirst(MainUtil.LineToUpper(columnName.get(j))));
                 stringBuffer.append("() {\n");
                 stringBuffer.append("\t\treturn ");
-                stringBuffer.append(LineToUpper(columnName.get(j)));
+                stringBuffer.append(MainUtil.LineToUpper(columnName.get(j)));
                 stringBuffer.append(";\n");
                 stringBuffer.append("\t}\n");
 
                 //set
                 stringBuffer.append("\tpublic void");
                 stringBuffer.append(" set");
-                stringBuffer.append(UpperToFirst(LineToUpper(columnName.get(j))));
+                stringBuffer.append(MainUtil.UpperToFirst(MainUtil.LineToUpper(columnName.get(j))));
                 stringBuffer.append(" (");
                 stringBuffer.append(columnType.get(j));
                 stringBuffer.append(" ");
-                stringBuffer.append(LineToUpper(columnName.get(j)));
+                stringBuffer.append(MainUtil.LineToUpper(columnName.get(j)));
                 stringBuffer.append(") {\n");
                 stringBuffer.append("\t\tthis.");
-                stringBuffer.append(LineToUpper(columnName.get(j)));
+                stringBuffer.append(MainUtil.LineToUpper(columnName.get(j)));
                 stringBuffer.append(" = ");
-                stringBuffer.append(LineToUpper(columnName.get(j)));
+                stringBuffer.append(MainUtil.LineToUpper(columnName.get(j)));
                 stringBuffer.append(";\n");
                 stringBuffer.append("\t}\n");
 
             }
 
             stringBuffer.append("}");
-            System.out.println(stringBuffer.toString());
-            writeFile(UpperToFirst(LineToUpper(dbTableBean.getTableName())), stringBuffer);
+            MainUtil.writeFile(MainUtil.UpperToFirst(MainUtil.LineToUpper(dbTableBean.getTableName())) + ".java", stringBuffer, path);//写入文件
         }
 
     }
 
 
-    public static void writeFile(String name, StringBuffer stringBuffer) {
-
-        FileOutputStream fileOutputStream = null;
-        try {
-
-            String path = "D://javaModel/";
-            File file = new File(path + name + ".java");
-
-            byte[] bytes = stringBuffer.toString().getBytes();
-            ByteInputStream byteInputStream = new ByteInputStream(bytes, bytes.length);
-            fileOutputStream = new FileOutputStream(file);
-
-            int i = 0;
-            while ((i = byteInputStream.read()) > 0) {
-
-                fileOutputStream.write(i);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (fileOutputStream != null) fileOutputStream.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-    }
-
-
-    /**
-     * “_小”转换为大写字母
-     *
-     * @param str
-     * @return
-     */
-    public static String LineToUpper(String str) {
-
-        char[] chars = str.toCharArray();
-
-        for (int i = 0; i < chars.length; i++) {
-
-            if (chars[i] == '_' && i < chars.length - 1) {
-                i++;
-                chars[i] = Character.toUpperCase(chars[i]);
-            }
-        }
-
-        return new String(chars).replaceAll("_", "");
-    }
-
-    /**
-     * 首字母大写
-     *
-     * @param str
-     * @return
-     */
-    public static String UpperToFirst(String str) {
-        if (Character.isLowerCase(str.charAt(0))) {
-            return str.replaceFirst(str.charAt(0) + "", Character.toUpperCase(str.charAt(0)) + "");
-        }
-        return str;
-    }
 }
