@@ -19,7 +19,8 @@ public class GoogleHttpsTest {
 
     private void testIt() {
 
-        String https_url = "https://www.zhangfan.com:8443/dream/cfp/getlist.do";
+//        String https_url = "https://www.zhangfan.com:8443";
+        String https_url = "https://www.zhangfan92.com:8445";
         URL url;
         try {
 
@@ -48,6 +49,10 @@ public class GoogleHttpsTest {
 
                 System.out.println("Response Code : " + con.getResponseCode());
                 System.out.println("Cipher Suite : " + con.getCipherSuite());
+                System.out.println(con.getPeerPrincipal().getName());
+                System.out.println(con.getCipherSuite());
+//                System.out.println(con.getLocalPrincipal().getName());
+
                 System.out.println("\n");
 
                 Certificate[] certs = con.getServerCertificates();
@@ -61,6 +66,19 @@ public class GoogleHttpsTest {
                     System.out.println("Cert Publict Key : " + cert.getPublicKey());
                     System.out.println("\n");
                 }
+
+               /* Certificate[] certificates = con.getLocalCertificates();
+                for (Certificate cert : certificates) {
+                    System.out.println("Cert Type : " + cert.getType());
+                    System.out.println("Cert Hash Code : " + cert.hashCode());
+                    System.out.println("Cert Public Key Algorithm : "
+                            + cert.getPublicKey().getAlgorithm());
+                    System.out.println("Cert Public Key Format : "
+                            + cert.getPublicKey().getFormat());
+                    System.out.println("Cert Publict Key : " + cert.getPublicKey());
+                    System.out.println("\n");
+                }*/
+
 
             } catch (SSLPeerUnverifiedException e) {
                 e.printStackTrace();

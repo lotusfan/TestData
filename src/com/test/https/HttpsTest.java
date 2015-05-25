@@ -25,7 +25,7 @@ public class HttpsTest {
     public static void main(String[] args) {
 
 //        String url = "https://192.168.0.153:8443/dream/ic/centerget.do";
-        String url = "https://www.baidu.com";
+        String url = "https://www.zhangfan92.com:8445";
         String params = "userId=31";
         try {
 
