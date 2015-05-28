@@ -28,6 +28,5 @@ public class Base64Pic {
         String ss = "AA";
         System.out.println(ss.getBytes().length);
         System.out.println(Base64.encode(ss));
-
     }
 }

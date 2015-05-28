@@ -29,6 +29,8 @@ public class GenerateDao {
             stringBuffer.append(className + " " + parameterName + ");\n");
             stringBuffer.append("\tpublic List<" + className + "> getBy (");
             stringBuffer.append(className + " " + parameterName + ");\n");
+            stringBuffer.append("\tpublic " + className + " getUniqueBy (");
+            stringBuffer.append(className + " " + parameterName + ");\n");
 
             stringBuffer.append("}");
             MainUtil.writeFile(className + "Mapper.java", stringBuffer, path); //写入文件

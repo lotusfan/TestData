@@ -32,11 +32,13 @@ public class GenerateMyBatisXML {
             stringBuffer.append(packageName + "." + MainUtil.UpperToFirst(MainUtil.LineToUpper(tableName)));
             stringBuffer.append("\">\n\n");
 
-            generateResultMap(columnName, tableName, packageName + "."+MainUtil.UpperToFirst(MainUtil.LineToUpper(tableName)), stringBuffer); //生成ResultMap
-            generateInsertLable(columnName, tableName, packageName + "."+MainUtil.UpperToFirst(MainUtil.LineToUpper(tableName)), "save", stringBuffer); //生成insert标签
-            generateUpdateLable(columnName, tableName, packageName + "."+MainUtil.UpperToFirst(MainUtil.LineToUpper(tableName)), "update", stringBuffer); //生成update标签
-            generateSelectLable(columnName, tableName, packageName + "."+MainUtil.UpperToFirst(MainUtil.LineToUpper(tableName)), "getBy",
+            generateResultMap(columnName, tableName, packageName + "." + MainUtil.UpperToFirst(MainUtil.LineToUpper(tableName)), stringBuffer); //生成ResultMap
+            generateInsertLable(columnName, tableName, packageName + "." + MainUtil.UpperToFirst(MainUtil.LineToUpper(tableName)), "save", stringBuffer); //生成insert标签
+            generateUpdateLable(columnName, tableName, packageName + "." + MainUtil.UpperToFirst(MainUtil.LineToUpper(tableName)), "update", stringBuffer); //生成update标签
+            generateSelectLable(columnName, tableName, packageName + "." + MainUtil.UpperToFirst(MainUtil.LineToUpper(tableName)), "getBy",
                     MainUtil.LineToUpper(tableName) + "ResultMap", stringBuffer); //生成select标签
+            generateCount(columnName, tableName, packageName + "." + MainUtil.UpperToFirst(MainUtil.LineToUpper(tableName)), "count", stringBuffer); //生成count标签
+
 
             stringBuffer.append("</mapper>");
 
@@ -76,7 +78,7 @@ public class GenerateMyBatisXML {
      * @param type
      * @param insertIdName
      */
-    public static void generateInsertLable(List<String> columnName, String tableName, String type, String insertIdName,StringBuffer stringBuffer) {
+    public static void generateInsertLable(List<String> columnName, String tableName, String type, String insertIdName, StringBuffer stringBuffer) {
 
         stringBuffer.append("<insert id=\"" + insertIdName + "\" parameterType=\"" + type + "\" useGeneratedKeys=\"true\" keyProperty=\"id\">");
         stringBuffer.append("\n\tinsert into `" + tableName + "`(");
@@ -140,4 +142,40 @@ public class GenerateMyBatisXML {
 
     }
 
+    public static void generatePaging(List<String> columnName, String tableName, String type, String pagingIdName, String resultMapName, StringBuffer stringBuffer) {
+
+        stringBuffer.append("<select id=\"" + pagingIdName + "\" parameterType=\"" + type + "\" resultMap=\"" + resultMapName + "\">");
+        stringBuffer.append("\n\tselect * from `" + tableName + "`");
+        stringBuffer.append("\n\t<trim prefix=\"where\" prefixOverrides=\"AND|OR\">");
+        for (String cn : columnName) {
+            if (cn.equals("serialVersionUID")) continue;
+            if (cn.equals("id")) continue;
+            stringBuffer.append("\n\t\t<if test=\"" + MainUtil.LineToUpper(cn) + " != null\">AND `" + cn + "` = #{" + MainUtil.LineToUpper(cn) + "} </if>");
+        }
+        stringBuffer.append("\n\t</trim>\n</select>\n");
+    }
+
+
+    /**
+     * Mybatis生成count标签
+     *
+     * @param columnName
+     * @param tableName
+     * @param type
+     * @param selectIdName
+     * @param stringBuffer
+     */
+    public static void generateCount(List<String> columnName, String tableName, String type, String selectIdName, StringBuffer stringBuffer) {
+
+        stringBuffer.append("<select id=\"" + selectIdName + "\" parameterType=\"" + type + "\" resultType=\"java.lang.Integer\">");
+        stringBuffer.append("\n\tselect count(*) from `" + tableName + "`");
+        stringBuffer.append("\n\t<trim prefix=\"where\" prefixOverrides=\"AND|OR\">");
+        for (String cn : columnName) {
+            if (cn.equals("serialVersionUID")) continue;
+            if (cn.equals("id")) continue;
+            stringBuffer.append("\n\t\t<if test=\"" + MainUtil.LineToUpper(cn) + " != null\">AND `" + cn + "` = #{" + MainUtil.LineToUpper(cn) + "} </if>");
+        }
+        stringBuffer.append("\n\t</trim>\n</select>\n");
+
+    }
 }
