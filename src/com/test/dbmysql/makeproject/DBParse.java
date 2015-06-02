@@ -51,6 +51,11 @@ public class DBParse {
                 String tableName = tableSet.getString("TABLE_NAME");//ResultSet中固定位4为表名
                 dbTableBean.setTableName(tableName);
 
+                ResultSet primarySet = metaData.getPrimaryKeys(null, null, tableName); //获取表的主键
+                while (primarySet.next()) {
+                    dbTableBean.setPrimaryKey(primarySet.getNString("COLUMN_NAME"));
+                }
+
                 ResultSet columnSet = metaData.getColumns(null, null, tableName, null);
 
                 List<String> columnName = new ArrayList<>();

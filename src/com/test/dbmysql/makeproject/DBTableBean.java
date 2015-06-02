@@ -7,10 +7,19 @@ import java.util.List;
  */
 public class DBTableBean {
     private String tableName;
+    private String primaryKey;
     private List<String> columnName;
     private List<String> columnType;
     private List<String> columnRemarks;
 
+
+    public String getPrimaryKey() {
+        return primaryKey;
+    }
+
+    public void setPrimaryKey(String primaryKey) {
+        this.primaryKey = primaryKey;
+    }
 
     public String getTableName() {
         return tableName;

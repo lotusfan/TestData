@@ -20,7 +20,7 @@ public class GenerateDao {
             stringBuffer.append(";\nimport java.util.List;\n");
 
             stringBuffer.append("public interface ");
-            stringBuffer.append(className);
+            stringBuffer.append(className+"Mapper");
             stringBuffer.append("{\n");
 
             stringBuffer.append("\tpublic void save (");
@@ -30,6 +30,8 @@ public class GenerateDao {
             stringBuffer.append("\tpublic List<" + className + "> getBy (");
             stringBuffer.append(className + " " + parameterName + ");\n");
             stringBuffer.append("\tpublic " + className + " getUniqueBy (");
+            stringBuffer.append(className + " " + parameterName + ");\n");
+            stringBuffer.append("\tpublic Integer count (");
             stringBuffer.append(className + " " + parameterName + ");\n");
 
             stringBuffer.append("}");

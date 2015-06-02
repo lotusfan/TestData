@@ -28,10 +28,13 @@ public class MainThread {
 
             GenerateFrameWork.execute(); //目录结构生成
             System.out.println("------------目录结构完成------------");
+
             GenerateJavaModel.execute(MainUtil.pathToPackageName(GenerateFrameWork.pathsMap.get("model")), path + GenerateFrameWork.pathsMap.get("model")); //javaBena生成
             System.out.println("------------javaBean完成-----------");
+
             GenerateMyBatisXML.generateMyBatisXML(MainUtil.pathToPackageName(GenerateFrameWork.pathsMap.get("model")), path + GenerateFrameWork.pathsMap.get("mapper"));//MybatisXML生成
             System.out.println("------------MybatisXML完成---------");
+
             GenerateDao.execute(MainUtil.pathToPackageName(GenerateFrameWork.pathsMap.get("dao")), MainUtil.pathToPackageName(GenerateFrameWork.pathsMap.get("model")),
                     path + GenerateFrameWork.pathsMap.get("dao")); //Dao层接口生成 现只有    save update getBy
             System.out.println("------------DAO层接口完成----------");
@@ -39,7 +42,18 @@ public class MainThread {
             GenerateProperties.execute(); //写入配置文件
             System.out.println("------------写入配置文件完成-------");
 
+            GenerateActionDB.execute();//生成简易可增删改查的数据库操作Action
+            System.out.println("------------生成操作数据库Action---");
+
+            GenerateJSP.execute();//生成数据库JSP管理
+            System.out.println("------------生成数据库JSP管理页面--");
+
+            GenerateJS.execute();//生成JSP对应JS页面
+            System.out.println("------------生成JSP对应JS页面------");
+
             System.out.println("\n------------已完成-----------------");
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }

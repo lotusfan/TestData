@@ -11,7 +11,7 @@ import com.google.gson.internal.StringMap;
 public class GjsonToObject {
 
     public static void main(String[] args) {
-        JavaBeanTest javaBean = new JavaBeanTest();
+       /* JavaBeanTest javaBean = new JavaBeanTest();
         SubBeanTest subBeanTest = new SubBeanTest();
         subBeanTest.setAge(3);
         subBeanTest.setSex("");
@@ -30,12 +30,22 @@ public class GjsonToObject {
         System.out.println(subBeanTest1);
 
         JavaBeanTest javaBeanTest = gson.fromJson(gson.toJson(javaBean), JavaBeanTest.class);
-        System.out.println(javaBeanTest);
+        System.out.println(javaBeanTest);*/
        /* System.out.println(javaBeanTest.getObject().getClass().getName());
         System.out.println(gson.toJson(javaBeanTest.getObject()));
         SubBeanTest subBean = gson.fromJson(gson.toJson(javaBeanTest.getObject()), SubBeanTest.class);
 
         System.out.println(subBean.getAge());*/
+
+        SubBeanTest subBeanTest = new SubBeanTest();
+//        subBeanTest.setAge(3);
+        Gson gson = new Gson();
+        try {
+            System.out.println(gson.fromJson("{'age':3, 'sex':null}", SubBeanTest.class));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -74,22 +84,10 @@ class JavaBeanTest{
 class SubBeanTest{
     private Integer age;
     private String sex;
+    private String sexx;
 
-    public Integer getAge() {
-        return age;
-    }
 
-    public void setAge(Integer age) {
-        this.age = age;
-    }
 
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
 
     @Override
     public String toString() {

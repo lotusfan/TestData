@@ -28,15 +28,15 @@ public class GenerateMyBatisXML {
 
             stringBuffer.append("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n");
             stringBuffer.append("<!DOCTYPE mapper PUBLIC \"-//mybatis.org//DTD Mapper 3.0//EN\" \"http://mybatis.org/dtd/mybatis-3-mapper.dtd\" >\n");
-            stringBuffer.append("<mapper namespace=\"");
-            stringBuffer.append(packageName + "." + MainUtil.UpperToFirst(MainUtil.LineToUpper(tableName)));
+            stringBuffer.append("<mapper namespace=\"com."+MainThread.packageNameYourself + ".dao.");
+            stringBuffer.append(MainUtil.UpperToFirst(MainUtil.LineToUpper(tableName)) + "Mapper");
             stringBuffer.append("\">\n\n");
 
-            generateResultMap(columnName, tableName, packageName + "." + MainUtil.UpperToFirst(MainUtil.LineToUpper(tableName)), stringBuffer); //生成ResultMap
+            generateResultMap(columnName, tableName, packageName + "." + MainUtil.UpperToFirst(MainUtil.LineToUpper(tableName)), stringBuffer, dbTableBean.getPrimaryKey()); //生成ResultMap
             generateInsertLable(columnName, tableName, packageName + "." + MainUtil.UpperToFirst(MainUtil.LineToUpper(tableName)), "save", stringBuffer); //生成insert标签
-            generateUpdateLable(columnName, tableName, packageName + "." + MainUtil.UpperToFirst(MainUtil.LineToUpper(tableName)), "update", stringBuffer); //生成update标签
+            generateUpdateLable(columnName, tableName, packageName + "." + MainUtil.UpperToFirst(MainUtil.LineToUpper(tableName)), "update", stringBuffer, dbTableBean.getPrimaryKey()); //生成update标签
             generateSelectLable(columnName, tableName, packageName + "." + MainUtil.UpperToFirst(MainUtil.LineToUpper(tableName)), "getBy",
-                    MainUtil.LineToUpper(tableName) + "ResultMap", stringBuffer); //生成select标签
+                    MainUtil.LineToUpper(tableName) + "ResultMap", stringBuffer,dbTableBean.getPrimaryKey()); //生成select标签
             generateCount(columnName, tableName, packageName + "." + MainUtil.UpperToFirst(MainUtil.LineToUpper(tableName)), "count", stringBuffer); //生成count标签
 
 
@@ -54,14 +54,14 @@ public class GenerateMyBatisXML {
      *
      * @param type
      */
-    public static void generateResultMap(List<String> columnName, String tableName, String type, StringBuffer stringBuffer) throws Exception {
+    public static void generateResultMap(List<String> columnName, String tableName, String type, StringBuffer stringBuffer, String primaryKey) throws Exception {
 
         stringBuffer.append("<resultMap id=\"" + MainUtil.LineToUpper(tableName) + "ResultMap" + "\" type=\"" + type + "\">");
 
         for (String cn : columnName) {
             if (cn.equals("serialVersionUID")) continue;
-            if (cn.equals("id")) {
-                stringBuffer.append("\n\t<id column=\"id\" property=\"id\"/>");
+            if (cn.equals(primaryKey)) {
+                stringBuffer.append("\n\t<id column=\""+primaryKey+"\" property=\""+MainUtil.LineToUpper(primaryKey)+"\"/>");
                 continue;
             }
             stringBuffer.append("\n\t<result column=\"" + cn + "\" property=\"" + MainUtil.LineToUpper(cn) + "\" />");
@@ -105,16 +105,16 @@ public class GenerateMyBatisXML {
      * @param type
      * @param updateIdName
      */
-    public static void generateUpdateLable(List<String> columnName, String tableName, String type, String updateIdName, StringBuffer stringBuffer) {
+    public static void generateUpdateLable(List<String> columnName, String tableName, String type, String updateIdName, StringBuffer stringBuffer, String primaryKey) {
 
         stringBuffer.append("<update id=\"" + updateIdName + "\" parameterType=\"" + type + "\">");
         stringBuffer.append("\n\tupdate `" + tableName + "`");
         stringBuffer.append("\n\t<trim prefix=\"set\" suffixOverrides=\",\">");
         for (String cn : columnName) {
-            if (cn.equals("id")) continue;
+            if (cn.equals(primaryKey)) continue;
             stringBuffer.append("\n\t\t<if test=\"" + MainUtil.LineToUpper(cn) + " != null\">`" + cn + "` = #{" + MainUtil.LineToUpper(cn) + "},</if>");
         }
-        stringBuffer.append("\n\t</trim>\n\twhere `id` = #{id}\n</update>\n");
+        stringBuffer.append("\n\t</trim>\n\twhere `"+primaryKey+"` = #{"+MainUtil.LineToUpper(primaryKey)+"}\n</update>\n");
 
     }
 
@@ -128,14 +128,13 @@ public class GenerateMyBatisXML {
      * @param resultMapName
      * @param stringBuffer
      */
-    public static void generateSelectLable(List<String> columnName, String tableName, String type, String selectIdName, String resultMapName, StringBuffer stringBuffer) {
+    public static void generateSelectLable(List<String> columnName, String tableName, String type, String selectIdName, String resultMapName, StringBuffer stringBuffer, String primaryKey) {
 
         stringBuffer.append("<select id=\"" + selectIdName + "\" parameterType=\"" + type + "\" resultMap=\"" + resultMapName + "\">");
         stringBuffer.append("\n\tselect * from `" + tableName + "`");
         stringBuffer.append("\n\t<trim prefix=\"where\" prefixOverrides=\"AND|OR\">");
         for (String cn : columnName) {
             if (cn.equals("serialVersionUID")) continue;
-            if (cn.equals("id")) continue;
             stringBuffer.append("\n\t\t<if test=\"" + MainUtil.LineToUpper(cn) + " != null\">AND `" + cn + "` = #{" + MainUtil.LineToUpper(cn) + "} </if>");
         }
         stringBuffer.append("\n\t</trim>\n</select>\n");
