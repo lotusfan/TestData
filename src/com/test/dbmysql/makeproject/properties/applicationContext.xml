@@ -15,7 +15,7 @@
     <mvc:annotation-driven>
         <mvc:message-converters register-defaults="true">
 
-          <!--  <bean class="com.mengyou.util.EncryptHttpMessageConverter" >
+          <!--  <bean class="com.userdefine.util.EncryptHttpMessageConverter" >
             </bean>-->
         <bean class="org.springframework.http.converter.StringHttpMessageConverter" >
             <constructor-arg value="UTF-8" />
@@ -35,6 +35,6 @@
     </mvc:annotation-driven>
 
     <context:annotation-config />
-    <context:component-scan base-package="com.mengyou" />
+    <context:component-scan base-package="com.userdefine" />
 
 </beans>

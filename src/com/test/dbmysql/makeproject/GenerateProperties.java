@@ -1,8 +1,6 @@
 package com.test.dbmysql.makeproject;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,12 +93,21 @@ public class GenerateProperties {
         try {
 
             fileInputStream = new FileInputStream(file);
-            fileOutputStream = new FileOutputStream(new File(path + file.getName()));
-            int i = 0;
-            byte[] bytes = new byte[1024];
-            while ((i = fileInputStream.read(bytes)) > 0) {
-                fileOutputStream.write(bytes, 0, i);
+
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
+
+            String str = null;
+            StringBuffer stringBuffer = new StringBuffer();
+            while ((str = bufferedReader.readLine()) != null) {
+                stringBuffer.append(str+"\n");
             }
+
+            int i = 0;
+            while ((i = stringBuffer.lastIndexOf("userdefine")) > 0) {
+                stringBuffer.replace(i, i + 10, MainThread.packageNameYourself);
+            }
+            MainUtil.writeFile(file.getName(), stringBuffer, path);
+
 
         } catch (Exception e) {
             e.printStackTrace();

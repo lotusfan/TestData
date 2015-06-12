@@ -64,7 +64,6 @@ public class MainUtil {
 
             int i = 0;
             while ((i = byteInputStream.read()) > 0) {
-
                 fileOutputStream.write(i);
             }
         } catch (Exception e) {

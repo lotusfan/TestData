@@ -33,6 +33,8 @@ public class GenerateDao {
             stringBuffer.append(className + " " + parameterName + ");\n");
             stringBuffer.append("\tpublic Integer count (");
             stringBuffer.append(className + " " + parameterName + ");\n");
+            stringBuffer.append("\tpublic List<" + className + "> getConditionBy (");
+            stringBuffer.append(className + " " + parameterName + ");\n");
 
             stringBuffer.append("}");
             MainUtil.writeFile(className + "Mapper.java", stringBuffer, path); //写入文件

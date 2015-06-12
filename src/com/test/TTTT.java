@@ -8,6 +8,12 @@ import com.test.dbmysql.makeproject.MainThread;
 public class TTTT {
     public static void main(String[] args) {
 
+
+        StringBuffer stringBuffer = new StringBuffer();
+
+        stringBuffer.append("123353245236243");
+        System.out.println(stringBuffer.lastIndexOf("d"));
+
 //        System.out.println(Math.floor(12 / Float.parseFloat("5")));
 
 
@@ -16,10 +22,10 @@ public class TTTT {
             System.out.println(matcher.group(1));
         }*/
 
-        int[][] ints = new int[1][22];
+ /*       int[][] ints = new int[1][22];
         ints[0][2]++;
 
-        System.out.println(ints[0][2]);
+        System.out.println(ints[0][2]);*/
 
 
         /*try {

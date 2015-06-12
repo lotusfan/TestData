@@ -19,7 +19,134 @@ public class GenerateJavaModel {
     }
 
 
-    public static void execute(String packageName, String path) throws Exception {
+    public static void execute() {
+        generateJavaObjectModel(MainUtil.pathToPackageName(GenerateFrameWork.pathsMap.get("model")), MainThread.path + GenerateFrameWork.pathsMap.get("model")); //生成javaModel
+        generateParentModel(MainUtil.pathToPackageName(GenerateFrameWork.pathsMap.get("model")), MainThread.path + GenerateFrameWork.pathsMap.get("model")); //生成javaModel
+
+    }
+
+
+    public static void generateParentModel(String packageName, String path) {
+
+        StringBuffer stringBuffer = new StringBuffer();
+
+        stringBuffer.append("package "+packageName+";\n" +
+                "\n" +
+                "public class ParentModel {\n" +
+                "    private Integer skipNum;\n" +
+                "    private Integer pageNum;\n" +
+                "    private String sequence1;\n" +
+                "    private String sequence1Type;\n" +
+                "    private String sequence2;\n" +
+                "    private String sequence2Type;\n" +
+                "    private String maxParameter;\n" +
+                "    private String maxValue;\n" +
+                "    private String minParameter;\n" +
+                "    private String minValue;\n" +
+                "\n" +
+                "    public Integer getSkipNum() {\n" +
+                "        return skipNum;\n" +
+                "    }\n" +
+                "\n" +
+                "    public void setSkipNum(Integer skipNum) {\n" +
+                "        this.skipNum = skipNum;\n" +
+                "    }\n" +
+                "\n" +
+                "    public Integer getPageNum() {\n" +
+                "        return pageNum;\n" +
+                "    }\n" +
+                "\n" +
+                "    public void setPageNum(Integer pageNum) {\n" +
+                "        this.pageNum = pageNum;\n" +
+                "    }\n" +
+                "\n" +
+                "\n" +
+                "    public String getSequence1() {\n" +
+                "        return sequence1;\n" +
+                "    }\n" +
+                "\n" +
+                "    public void setSequence1(String sequence1) {\n" +
+                "        this.sequence1 = sequence1;\n" +
+                "    }\n" +
+                "\n" +
+                "    public String getSequence2() {\n" +
+                "        return sequence2;\n" +
+                "    }\n" +
+                "\n" +
+                "    public void setSequence2(String sequence2) {\n" +
+                "        this.sequence2 = sequence2;\n" +
+                "    }\n" +
+                "\n" +
+                "    public String getMaxParameter() {\n" +
+                "        return maxParameter;\n" +
+                "    }\n" +
+                "\n" +
+                "    public void setMaxParameter(String maxParameter) {\n" +
+                "        this.maxParameter = maxParameter;\n" +
+                "    }\n" +
+                "\n" +
+                "    public String getMaxValue() {\n" +
+                "        return maxValue;\n" +
+                "    }\n" +
+                "\n" +
+                "    public void setMaxValue(String maxValue) {\n" +
+                "        this.maxValue = maxValue;\n" +
+                "    }\n" +
+                "\n" +
+                "    public String getMinParameter() {\n" +
+                "        return minParameter;\n" +
+                "    }\n" +
+                "\n" +
+                "    public void setMinParameter(String minParameter) {\n" +
+                "        this.minParameter = minParameter;\n" +
+                "    }\n" +
+                "\n" +
+                "    public String getMinValue() {\n" +
+                "        return minValue;\n" +
+                "    }\n" +
+                "\n" +
+                "    public void setMinValue(String minValue) {\n" +
+                "        this.minValue = minValue;\n" +
+                "    }\n" +
+                "\n" +
+                "    public String getSequence1Type() {\n" +
+                "        return sequence1Type;\n" +
+                "    }\n" +
+                "\n" +
+                "    public void setSequence1Type(String sequence1Type) {\n" +
+                "        this.sequence1Type = sequence1Type;\n" +
+                "    }\n" +
+                "\n" +
+                "    public String getSequence2Type() {\n" +
+                "        return sequence2Type;\n" +
+                "    }\n" +
+                "\n" +
+                "    public void setSequence2Type(String sequence2Type) {\n" +
+                "        this.sequence2Type = sequence2Type;\n" +
+                "    }\n" +
+                "\n" +
+                "    @Override\n" +
+                "    public String toString() {\n" +
+                "        return \"ParentModel{\" +\n" +
+                "                \"skipNum=\" + skipNum +\n" +
+                "                \", pageNum=\" + pageNum +\n" +
+                "                \", sequence1='\" + sequence1 + '\\'' +\n" +
+                "                \", sequence1Type='\" + sequence1Type + '\\'' +\n" +
+                "                \", sequence2='\" + sequence2 + '\\'' +\n" +
+                "                \", sequence2Type='\" + sequence2Type + '\\'' +\n" +
+                "                \", maxParameter='\" + maxParameter + '\\'' +\n" +
+                "                \", maxValue='\" + maxValue + '\\'' +\n" +
+                "                \", minParameter='\" + minParameter + '\\'' +\n" +
+                "                \", minValue='\" + minValue + '\\'' +\n" +
+                "                '}';\n" +
+                "    }\n" +
+                "}\n");
+
+
+        MainUtil.writeFile("ParentModel.java", stringBuffer, path);//写入文件
+    }
+
+    public static void generateJavaObjectModel(String packageName, String path) {
 
         for (DBTableBean dbTableBean : MainThread.dbTableBeans) {
 
@@ -37,7 +164,7 @@ public class GenerateJavaModel {
             //类名
             stringBuffer.append("public class ");
             stringBuffer.append(MainUtil.UpperToFirst(MainUtil.LineToUpper(dbTableBean.getTableName())));
-            stringBuffer.append(" {\n\n");
+            stringBuffer.append(" extends ParentModel{\n\n");
 
             List<String> columnName = dbTableBean.getColumnName();
             List<String> columnType = dbTableBean.getColumnType();
