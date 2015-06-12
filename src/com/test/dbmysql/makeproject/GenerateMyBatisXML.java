@@ -1,9 +1,6 @@
 package com.test.dbmysql.makeproject;
 
-import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
-
-import java.io.File;
-import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,7 +33,9 @@ public class GenerateMyBatisXML {
             generateInsertLable(columnName, tableName, packageName + "." + MainUtil.UpperToFirst(MainUtil.LineToUpper(tableName)), "save", stringBuffer); //生成insert标签
             generateUpdateLable(columnName, tableName, packageName + "." + MainUtil.UpperToFirst(MainUtil.LineToUpper(tableName)), "update", stringBuffer, dbTableBean.getPrimaryKey()); //生成update标签
             generateSelectLable(columnName, tableName, packageName + "." + MainUtil.UpperToFirst(MainUtil.LineToUpper(tableName)), "getBy",
-                    MainUtil.LineToUpper(tableName) + "ResultMap", stringBuffer,dbTableBean.getPrimaryKey()); //生成select标签
+                    MainUtil.LineToUpper(tableName) + "ResultMap", stringBuffer, dbTableBean.getPrimaryKey()); //生成select标签
+            generateUniqueSelectLable(columnName, tableName, packageName + "." + MainUtil.UpperToFirst(MainUtil.LineToUpper(tableName)), "getUniqueBy",
+                    MainUtil.LineToUpper(tableName) + "ResultMap", stringBuffer, dbTableBean.getPrimaryKey()); //生成unique select标签
             generateCount(columnName, tableName, packageName + "." + MainUtil.UpperToFirst(MainUtil.LineToUpper(tableName)), "count", stringBuffer); //生成count标签
 
 
@@ -57,15 +56,21 @@ public class GenerateMyBatisXML {
     public static void generateResultMap(List<String> columnName, String tableName, String type, StringBuffer stringBuffer, String primaryKey) throws Exception {
 
         stringBuffer.append("<resultMap id=\"" + MainUtil.LineToUpper(tableName) + "ResultMap" + "\" type=\"" + type + "\">");
+        List<String> strings = new ArrayList<>();  //排序   主键必须为第一个
 
         for (String cn : columnName) {
             if (cn.equals("serialVersionUID")) continue;
             if (cn.equals(primaryKey)) {
-                stringBuffer.append("\n\t<id column=\""+primaryKey+"\" property=\""+MainUtil.LineToUpper(primaryKey)+"\"/>");
+                strings.add(0,"\n\t<id column=\""+primaryKey+"\" property=\""+MainUtil.LineToUpper(primaryKey)+"\"/>");
                 continue;
             }
-            stringBuffer.append("\n\t<result column=\"" + cn + "\" property=\"" + MainUtil.LineToUpper(cn) + "\" />");
+            strings.add("\n\t<result column=\"" + cn + "\" property=\"" + MainUtil.LineToUpper(cn) + "\" />");
         }
+
+        for (String s : strings) {
+            stringBuffer.append(s);
+        }
+
         stringBuffer.append(" \n</resultMap> \n");
 
     }
@@ -141,6 +146,28 @@ public class GenerateMyBatisXML {
 
     }
 
+    /**
+     * Mybatis生成unique select标签
+     *
+     * @param columnName
+     * @param tableName
+     * @param type
+     * @param selectIdName
+     * @param resultMapName
+     * @param stringBuffer
+     */
+    public static void generateUniqueSelectLable(List<String> columnName, String tableName, String type, String selectIdName, String resultMapName, StringBuffer stringBuffer, String primaryKey) {
+
+        stringBuffer.append("<select id=\"" + selectIdName + "\" parameterType=\"" + type + "\" resultMap=\"" + resultMapName + "\">");
+        stringBuffer.append("\n\tselect * from `" + tableName + "`");
+        stringBuffer.append("\n\t<trim prefix=\"where\" prefixOverrides=\"AND|OR\">");
+        for (String cn : columnName) {
+            if (cn.equals("serialVersionUID")) continue;
+            stringBuffer.append("\n\t\t<if test=\"" + MainUtil.LineToUpper(cn) + " != null\">AND `" + cn + "` = #{" + MainUtil.LineToUpper(cn) + "} </if>");
+        }
+        stringBuffer.append("\n\t</trim>\n</select>\n");
+
+    }
     public static void generatePaging(List<String> columnName, String tableName, String type, String pagingIdName, String resultMapName, StringBuffer stringBuffer) {
 
         stringBuffer.append("<select id=\"" + pagingIdName + "\" parameterType=\"" + type + "\" resultMap=\"" + resultMapName + "\">");

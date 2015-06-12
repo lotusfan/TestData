@@ -40,6 +40,11 @@ public class GenerateProperties {
 
                 writeFile(files[0], MainThread.path+GenerateFrameWork.pathsMap.get("webapp"));
             }
+            if (fileName.equals("js")) {
+                for (File f : files) {
+                    writeFile(f, MainThread.path + GenerateFrameWork.pathsMap.get("js"));
+                }
+            }
 
         }
 
@@ -69,7 +74,7 @@ public class GenerateProperties {
         File[] files = file.listFiles();
         if (files == null || files.length == 0) return;
         for (File f : files) {
-            if (f.getName().matches("pom|properties|web"))
+            if (f.getName().matches("pom|properties|web|js"))
                 stringList.add(f.getAbsolutePath());
             searchLoop(f);
         }

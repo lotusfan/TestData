@@ -1,16 +1,28 @@
 package com.test;
 
-import java.io.File;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
+import com.test.dbmysql.makeproject.MainThread;
 
 /**
  * Created by zhangfan on 2015/5/14.
  */
 public class TTTT {
     public static void main(String[] args) {
-        try {
+
+//        System.out.println(Math.floor(12 / Float.parseFloat("5")));
+
+
+       /* Matcher matcher=Pattern.compile("\\((\\d{7})\\)").matcher("2015-06-04(2015064)");
+        while(matcher.find()){
+            System.out.println(matcher.group(1));
+        }*/
+
+        int[][] ints = new int[1][22];
+        ints[0][2]++;
+
+        System.out.println(ints[0][2]);
+
+
+        /*try {
 
             File file = new File("F:\\KuGou");
 
@@ -31,6 +43,6 @@ public class TTTT {
         strings.add(1, "999");
         for (String str : strings) {
             System.out.println(str);
-        }
+        }*/
     }
 }

@@ -14,12 +14,12 @@ public class GenerateJSP {
 
             String tableName = dbTableBean.getTableName();
             List<String> columnName = dbTableBean.getColumnName();
-            generateGetByJSP(tableName, columnName);
+            generateGetByJSP(tableName, columnName, dbTableBean.getPrimaryKey());
         }
     }
 
 
-    public static void generateGetByJSP(String tableName, List<String> columnName) {
+    public static void generateGetByJSP(String tableName, List<String> columnName, String primaryKey) {
         StringBuffer stringBuffer = new StringBuffer();
 
         stringBuffer.append("<%@ page contentType=\"text/html;charset=UTF-8\" language=\"java\" %>\n" +
@@ -43,7 +43,11 @@ public class GenerateJSP {
                 "    <c:forEach var=\"oo\" items=\"${" + MainUtil.LineToUpper(tableName) + "}\">\n" +
                 "        <tr>\n");
         for (String s : columnName) {
-            stringBuffer.append("        <td><input class=\"oo"+MainUtil.LineToUpper(s)+"\" value=\"${oo."+MainUtil.LineToUpper(s)+"}\" /></td>\n");
+            if (s.equals(primaryKey)) {
+                stringBuffer.append("        <td><input class=\"oo" + MainUtil.LineToUpper(s) + "\" value=\"${oo." + MainUtil.LineToUpper(s) + "}\" readonly=\"true\" /></td>\n");
+                continue;
+            }
+            stringBuffer.append("        <td><input class=\"oo" + MainUtil.LineToUpper(s) + "\" value=\"${oo." + MainUtil.LineToUpper(s) + "}\" /></td>\n");
         }
         stringBuffer.append("        <td><button class=\"alb\">修改</button></td>\n");
 

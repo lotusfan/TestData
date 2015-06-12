@@ -6,10 +6,6 @@ package com.test.dbmysql.makeproject;
 
 public class GenerateActionDB {
 
-    public static void main(String[] args) {
-
-
-    }
 
     public static void execute() {
 
