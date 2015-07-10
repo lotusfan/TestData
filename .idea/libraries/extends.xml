@@ -5,10 +5,12 @@
       <root url="file://$PROJECT_DIR$/lib" />
       <root url="file://E:/javalib/httpcomponents-client-4.4.1/lib" />
       <root url="file://E:/javalib/jiaoben1892" />
+      <root url="file://$PROJECT_DIR$/lib/smack" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
     <jarDirectory url="file://$PROJECT_DIR$/lib" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/lib/smack" recursive="false" />
     <jarDirectory url="file://E:/javalib/httpcomponents-client-4.4.1/lib" recursive="false" />
   </library>
 </component>

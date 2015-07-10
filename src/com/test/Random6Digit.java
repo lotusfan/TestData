@@ -20,7 +20,12 @@ public class Random6Digit {
         return num;
     }
 
-    public static void main(String[] args) throws Exception{
-        System.out.println(generatePin());
+    public static void main(String[] args) throws Exception {
+//        System.out.println(generatePin());
+
+
+        Random random = new Random();
+        System.out.println(random.nextInt(10));
+
     }
 }

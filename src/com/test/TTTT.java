@@ -2,6 +2,10 @@ package com.test;
 
 import com.test.dbmysql.makeproject.MainThread;
 
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
+
 /**
  * Created by zhangfan on 2015/5/14.
  */
@@ -9,10 +13,17 @@ public class TTTT {
     public static void main(String[] args) {
 
 
-        StringBuffer stringBuffer = new StringBuffer();
+        String s = "BCEC44ED-0FB2-4ACF-84D5-13DCD95F7A3A";
+        System.out.println(s.length());
 
-        stringBuffer.append("123353245236243");
-        System.out.println(stringBuffer.lastIndexOf("d"));
+
+        /*Set set = new HashSet();
+        for (int i = 0; i < 100000; i++) {
+
+            set.add(getRandomCharArray(6).toLowerCase());
+        }
+        System.out.println(set.size());*/
+
 
 //        System.out.println(Math.floor(12 / Float.parseFloat("5")));
 
@@ -50,5 +61,39 @@ public class TTTT {
         for (String str : strings) {
             System.out.println(str);
         }*/
+    }
+
+
+    public static String getRandomCharArray(int iLength) {
+        String val = "";
+
+        Random random = new Random();
+        for(int i = 0; i < iLength; i++)
+        {
+            String charOrNum = random.nextInt(2) % 2 == 0 ? "char" : "num"; // 输出字母还是数字
+
+            if("char".equalsIgnoreCase(charOrNum)) // 字符串
+            {
+                int choice = random.nextInt(2) % 2 == 0 ? 65 : 97; //取得大写字母还是小写字母
+                char temp = (char) (choice + random.nextInt(26));
+                if(String.valueOf(temp).equals("l")||String.valueOf(temp).equals("L")||String.valueOf(temp).equals("O")||String.valueOf(temp).equals("o")){
+                    temp='a';
+                }
+                val += temp;
+            }
+            else if("num".equalsIgnoreCase(charOrNum)) // 数字
+            {
+                int temp = random.nextInt(10);
+                //剔除0和1
+                if(temp<2){
+                    int choice = random.nextInt(2) % 2 == 0 ? 65 : 97; //取得大写字母还是小写字母
+                    val += (char) (choice + random.nextInt(26));
+                }else {
+                    val += temp;
+                }
+            }
+        }
+
+        return val;
     }
 }

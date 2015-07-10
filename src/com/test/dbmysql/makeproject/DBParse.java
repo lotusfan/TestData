@@ -1,5 +1,6 @@
 package com.test.dbmysql.makeproject;
 
+import javax.xml.ws.soap.MTOM;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -38,7 +39,7 @@ public class DBParse {
     public static void execute() {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/test", "zhangfan", "123456");
+            Connection conn = DriverManager.getConnection(MainThread.dbUrl, MainThread.dbUserName, MainThread.dbPassword);
             DatabaseMetaData metaData = conn.getMetaData();
 
             ResultSet tableSet = metaData.getTables(null, null, null, null);

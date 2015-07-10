@@ -103,6 +103,7 @@ public class GenerateProperties {
             }
 
             int i = 0;
+            //包名替换
             while ((i = stringBuffer.lastIndexOf("userdefine")) > 0) {
                 stringBuffer.replace(i, i + 10, MainThread.packageNameYourself);
             }
