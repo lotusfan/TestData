@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ap>
+    <plain>
+        <resp_code>5019</resp_code>
+        <mchnt_cd>0002900F0096235</mchnt_cd>
+        <mchnt_txn_ssn>2432323234324324</mchnt_txn_ssn>
+        <busi_tp>PWDJ</busi_tp>
+        <total_number>0</total_number>
+        <results></results>
+    </plain>
+    <signature>
+        jvW0fgBe7hGBUEIcxESDm1fjeTp4gM4sJw1w0uE9+CiIhksrc9eY4EemjcYfeB+P972zTxT887QQ9jk/fpU29YRpXiTBbqgM6nywu9cxBUKOyImUNt+LO2nwKsMhxgOpg0ZthA8HtKpO4gHGlp61SnyI0ZTKvaxGuE8GvOI+iXg=
+    </signature>
+</ap>

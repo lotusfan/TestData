@@ -30,7 +30,7 @@ public class GenerateJavaModel {
 
         StringBuffer stringBuffer = new StringBuffer();
 
-        stringBuffer.append("package "+packageName+";\n" +
+        stringBuffer.append("package " + packageName + ";\n" +
                 "\n" +
                 "public class ParentModel {\n" +
                 "    private Integer skipNum;\n" +
@@ -230,6 +230,18 @@ public class GenerateJavaModel {
                 stringBuffer.append("\t}\n");
 
             }
+
+            //toString 方法
+            stringBuffer.append("\n");
+            stringBuffer.append("    @Override\n" +
+                    "    public String toString() {\n" +
+                    "        return \"" + MainUtil.UpperToFirst(MainUtil.LineToUpper(dbTableBean.getTableName())) + "{\" +\n");
+            for (int j = 0; j < columnName.size(); j++) {
+                stringBuffer.append("            \"" + MainUtil.LineToUpper(columnName.get(j)) + "=\" + " + MainUtil.LineToUpper(columnName.get(j)) + " +\n");
+            }
+
+            stringBuffer.append("            '}';\n" +
+                    "    }\n");
 
             stringBuffer.append("}");
             MainUtil.writeFile(MainUtil.UpperToFirst(MainUtil.LineToUpper(dbTableBean.getTableName())) + ".java", stringBuffer, path);//写入文件

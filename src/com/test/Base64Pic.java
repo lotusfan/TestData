@@ -1,13 +1,12 @@
 package com.test;
 
-import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
+
 import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
 import com.test.rsa.Base64Utils;
-import it.sauronsoftware.base64.Base64;
-import sun.misc.BASE64Encoder;
+import org.jivesoftware.smack.util.stringencoder.Base64;
 
-import java.io.*;
-import java.util.Calendar;
+import java.io.File;
+import java.io.FileInputStream;
 
 /**
  * Created by zhangfan on 2015/3/25.

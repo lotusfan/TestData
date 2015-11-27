@@ -34,7 +34,7 @@ public class GenerateTransactionManager {
 
         StringBuffer stringBuffer = new StringBuffer();
 
-        stringBuffer.append("package com."+packageName+".service.transactionmanager;\n" +
+        stringBuffer.append("package com." + packageName + ".service.transactionmanager;\n" +
                 "\n" +
                 "import com." + packageName + ".dao." + className + "Mapper;\n" +
                 "import com." + packageName + ".model." + className + ";\n" +
@@ -84,6 +84,10 @@ public class GenerateTransactionManager {
                 "    public " + className + " getUniqueBy(" + className + " " + parameterName + ") {\n" +
                 "\n" +
                 "        return " + parameterName + "Mapper.getUniqueBy(" + parameterName + ");\n" +
+                "    }\n" +
+                "    public List<" + className + "> getConditionBy(" + className + " " + parameterName + ") {\n" +
+                "\n" +
+                "        return " + parameterName + "Mapper.getConditionBy(" + parameterName + ");\n" +
                 "    }\n" +
                 "\n" +
                 "    public List<" + className + "> getBy(" + className + " " + parameterName + ") {\n" +

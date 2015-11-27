@@ -2,6 +2,9 @@ package com.test;
 
 import com.test.dbmysql.makeproject.MainThread;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -13,8 +16,25 @@ public class TTTT {
     public static void main(String[] args) {
 
 
-        String s = "BCEC44ED-0FB2-4ACF-84D5-13DCD95F7A3A";
-        System.out.println(s.length());
+        String temp = "验证码：${check_code}，您正在使用全融短信验证码进行校验，请勿告知他人。客服电话：4000-686-000";
+        String content = temp
+                .replace("${check_code}", "asdfasdf");
+        System.out.println(content);
+
+
+       /* Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, 3);
+        System.out.println(calendar);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        System.out.println(simpleDateFormat.format(calendar.getTime()));*/
+
+     /*   String str = "";
+        System.out.println(str.length());*/
+
+       /* String str = "D:\\javaModel\\";
+        String s = "newp2p\\WEB-INF\\classes\\com\\hurong\\credit\\action\\message";
+        File file = new File(str + s);
+        file.mkdirs();*/
 
 
         /*Set set = new HashSet();

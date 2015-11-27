@@ -101,7 +101,7 @@ public class GenerateActionDB {
         stringBuffer.append("\t@ResponseBody\n");
         stringBuffer.append("\tpublic ModelAndView getBym () {\n");
         stringBuffer.append("\t\tList<" + javaModelName + "> list = " + parameterName + "Mapper.getBy(new " + javaModelName + "());\n");
-        stringBuffer.append("\t\tModelAndView mav = new ModelAndView(\"/jspdb/"+javaModelName+".jsp\");\n");
+        stringBuffer.append("\t\tModelAndView mav = new ModelAndView(\"/jspdb/"+parameterName+".jsp\");\n");
         stringBuffer.append("\t\tmav.addObject(\"" + parameterName + "\", list);\n");
         stringBuffer.append("\t\treturn mav;\n");
         stringBuffer.append("\t}\n");

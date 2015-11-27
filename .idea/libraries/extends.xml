@@ -1,16 +1,14 @@
 <component name="libraryTable">
   <library name="extends">
     <CLASSES>
-      <root url="jar://E:/javalib/javabase64-1.3.1/javabase64-1.3.1.jar!/" />
       <root url="file://$PROJECT_DIR$/lib" />
-      <root url="file://E:/javalib/httpcomponents-client-4.4.1/lib" />
-      <root url="file://E:/javalib/jiaoben1892" />
       <root url="file://$PROJECT_DIR$/lib/smack" />
+      <root url="file://$PROJECT_DIR$/lib/httpclient" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
     <jarDirectory url="file://$PROJECT_DIR$/lib" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/lib/httpclient" recursive="false" />
     <jarDirectory url="file://$PROJECT_DIR$/lib/smack" recursive="false" />
-    <jarDirectory url="file://E:/javalib/httpcomponents-client-4.4.1/lib" recursive="false" />
   </library>
 </component>

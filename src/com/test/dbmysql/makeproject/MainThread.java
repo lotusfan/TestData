@@ -10,9 +10,9 @@ public class MainThread {
 
     public static List<DBTableBean> dbTableBeans;
     public static String packageNameYourself = "rongrong"; //自定义package名  会影响javaBean xml 配置的生成  请保持和项目结构一样
-    public static String path = "D://javaModel/"; //文件生成路径，和java包无关
-    public static String dbUrl = "jdbc:mysql://127.0.0.1:3306/rongrong"; //数据库连接 + 库名
-    public static String dbUserName = "zhangfan"; //数据库 用户名
+    public static String path = "/Users/zhangfan/generateCode/"; //文件生成路径，和java包无关
+    public static String dbUrl = "jdbc:mysql://127.0.0.1:3307/letsgo"; //数据库连接 + 库名
+    public static String dbUserName = "root"; //数据库 用户名
     public static String dbPassword = "123456"; //数据库  密码
 
     /**
@@ -60,13 +60,13 @@ public class MainThread {
             System.out.println("\n------------已完成-----------------");
 
 
-            String[] cmd = new String[5];
-            cmd[0] = "cmd";
-            cmd[1] = "/c";
-            cmd[2] = "start";
-            cmd[3] = " ";
-            cmd[4] = path;
-            Runtime.getRuntime().exec(cmd);
+//            String[] cmd = new String[5];
+//            cmd[0] = "cmd";
+//            cmd[1] = "/c";
+//            cmd[2] = "start";
+//            cmd[3] = " ";
+//            cmd[4] = path;
+//            Runtime.getRuntime().exec(cmd);
 
 
         } catch (Exception e) {

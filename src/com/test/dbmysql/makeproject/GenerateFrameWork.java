@@ -25,7 +25,7 @@ public class GenerateFrameWork {
         directorysList.add("src/main/java/com/" + MainThread.packageNameYourself + "/dao");
         directorysList.add("src/main/java/com/" + MainThread.packageNameYourself + "/model");
         directorysList.add("src/main/java/com/" + MainThread.packageNameYourself + "/service");
-        directorysList.add("src/main/java/com/" + MainThread.packageNameYourself + "/service/transactionmanager");
+        directorysList.add("src/main/java/com/" + MainThread.packageNameYourself + "/dao/transactionmanager");
         directorysList.add("src/main/java/com/" + MainThread.packageNameYourself + "/util");
 
         directorysList.add("src/main/resources");
@@ -41,7 +41,7 @@ public class GenerateFrameWork {
         pathsMap.put("dao", "src/main/java/com/" + MainThread.packageNameYourself + "/dao/");
         pathsMap.put("model", "src/main/java/com/" + MainThread.packageNameYourself + "/model/");
         pathsMap.put("service", "src/main/java/com/" + MainThread.packageNameYourself + "/service/");
-        pathsMap.put("transaction", "src/main/java/com/" + MainThread.packageNameYourself + "/service/transactionmanager/");
+        pathsMap.put("transaction", "src/main/java/com/" + MainThread.packageNameYourself + "/dao/transactionmanager/");
         pathsMap.put("mapper", "src/main/resources/mapper/");
         pathsMap.put("resources", "src/main/resources/");
         pathsMap.put("webapp", "src/main/webapp/WEB-INF/");
