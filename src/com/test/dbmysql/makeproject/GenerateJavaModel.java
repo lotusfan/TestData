@@ -237,7 +237,7 @@ public class GenerateJavaModel {
                     "    public String toString() {\n" +
                     "        return \"" + MainUtil.UpperToFirst(MainUtil.LineToUpper(dbTableBean.getTableName())) + "{\" +\n");
             for (int j = 0; j < columnName.size(); j++) {
-                stringBuffer.append("            \"" + MainUtil.LineToUpper(columnName.get(j)) + "=\" + " + MainUtil.LineToUpper(columnName.get(j)) + " +\n");
+                stringBuffer.append("            \"\\n" + MainUtil.LineToUpper(columnName.get(j)) + "=\" + " + MainUtil.LineToUpper(columnName.get(j)) + " +\n");
             }
 
             stringBuffer.append("            '}';\n" +

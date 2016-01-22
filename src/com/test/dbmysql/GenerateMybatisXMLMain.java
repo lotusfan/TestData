@@ -10,7 +10,7 @@ public class GenerateMybatisXMLMain {
 
         Class cl = Class.forName("com.mengyou.model.db.Transaction");
         String type = cl.getName();
-        String resultMapName = LowerToFirst(cl.getSimpleName())+"ResultMap";
+        String resultMapName = LowerToFirst(cl.getSimpleName()) + "ResultMap";
 
         String insertIdName = "save";
         String dbName = "transaction";
@@ -20,21 +20,20 @@ public class GenerateMybatisXMLMain {
         String selectIdName = "getBy";
 
 
-
-
         Field[] fields = cl.getDeclaredFields();
 
-        generateResultMap(fields,resultMapName,type); //生成ResultMap
+        generateResultMap(fields, resultMapName, type); //生成ResultMap
 
-        generateInsertLable(fields,insertIdName,type,dbName); //生成insert标签
+        generateInsertLable(fields, insertIdName, type, dbName); //生成insert标签
 
-        generateUpdateLable(fields,updateIdName,type,dbName); //生成update标签
+        generateUpdateLable(fields, updateIdName, type, dbName); //生成update标签
 
-        generateSelectLable(fields,selectIdName,type,dbName,resultMapName);
+        generateSelectLable(fields, selectIdName, type, dbName, resultMapName);
     }
 
     /**
      * Mybatis生成resultMap标签
+     *
      * @param fileds
      * @param resultMapName
      * @param type
@@ -56,6 +55,7 @@ public class GenerateMybatisXMLMain {
 
     /**
      * Mybatis生成insert标签
+     *
      * @param fields
      * @param insertIdName
      * @param type
@@ -63,19 +63,19 @@ public class GenerateMybatisXMLMain {
      */
     public static void generateInsertLable(Field[] fields, String insertIdName, String type, String dbName) {
         StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append("<insert id=\""+insertIdName+"\" parameterType=\""+type+"\" useGeneratedKeys=\"true\" keyProperty=\"id\">");
-        stringBuffer.append("\n\tinsert into `"+dbName+"`(");
+        stringBuffer.append("<insert id=\"" + insertIdName + "\" parameterType=\"" + type + "\" useGeneratedKeys=\"true\" keyProperty=\"id\">");
+        stringBuffer.append("\n\tinsert into `" + dbName + "`(");
         stringBuffer.append("\n\t<trim suffixOverrides=\",\">");
         for (Field field : fields) {
             if (field.getName().equals("serialVersionUID")) continue;
             if (field.getName().equals("id")) continue;
-            stringBuffer.append("\n\t\t<if test=\""+field.getName()+" != null\">`"+UpperToLine(field.getName())+"`,</if>");
+            stringBuffer.append("\n\t\t<if test=\"" + field.getName() + " != null\">`" + UpperToLine(field.getName()) + "`,</if>");
         }
         stringBuffer.append("</trim>\n\t)values(\n\t<trim suffixOverrides=\",\">");
         for (Field field : fields) {
             if (field.getName().equals("serialVersionUID")) continue;
             if (field.getName().equals("id")) continue;
-            stringBuffer.append("\n\t\t<if test=\""+field.getName()+" != null\"> #{"+field.getName()+"},</if>");
+            stringBuffer.append("\n\t\t<if test=\"" + field.getName() + " != null\"> #{" + field.getName() + "},</if>");
         }
         stringBuffer.append("\n\t</trim>\n\t)\n</insert>");
 
@@ -84,6 +84,7 @@ public class GenerateMybatisXMLMain {
 
     /**
      * Mybatis生成Update标签
+     *
      * @param fields
      * @param updateIdName
      * @param type
@@ -91,13 +92,13 @@ public class GenerateMybatisXMLMain {
      */
     public static void generateUpdateLable(Field[] fields, String updateIdName, String type, String dbName) {
         StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append("<update id=\""+updateIdName+"\" parameterType=\""+type+"\">");
-        stringBuffer.append("\n\tupdate `"+dbName+"`");
+        stringBuffer.append("<update id=\"" + updateIdName + "\" parameterType=\"" + type + "\">");
+        stringBuffer.append("\n\tupdate `" + dbName + "`");
         stringBuffer.append("\n\t<trim prefix=\"set\" suffixOverrides=\",\">");
         for (Field field : fields) {
             if (field.getName().equals("serialVersionUID")) continue;
             if (field.getName().equals("id")) continue;
-            stringBuffer.append("\n\t\t<if test=\""+field.getName()+" != null\">`"+UpperToLine(field.getName())+"` = #{"+field.getName()+"},</if>");
+            stringBuffer.append("\n\t\t<if test=\"" + field.getName() + " != null\">`" + UpperToLine(field.getName()) + "` = #{" + field.getName() + "},</if>");
         }
         stringBuffer.append("\n\t</trim>\n\twhere `id` = #{id}\n</update>");
         System.out.println(stringBuffer.toString());
@@ -106,6 +107,7 @@ public class GenerateMybatisXMLMain {
 
     /**
      * Mybatis生成select标签
+     *
      * @param fields
      * @param selectIdName
      * @param type
@@ -114,13 +116,13 @@ public class GenerateMybatisXMLMain {
      */
     public static void generateSelectLable(Field[] fields, String selectIdName, String type, String dbName, String resultMapName) {
         StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append("<select id=\""+selectIdName+"\" parameterType=\""+type+"\" resultMap=\""+resultMapName+"\">");
-        stringBuffer.append("\n\tselect * from `"+dbName+"`");
+        stringBuffer.append("<select id=\"" + selectIdName + "\" parameterType=\"" + type + "\" resultMap=\"" + resultMapName + "\">");
+        stringBuffer.append("\n\tselect * from `" + dbName + "`");
         stringBuffer.append("\n\t<trim prefix=\"where\" prefixOverrides=\"AND|OR\">");
         for (Field field : fields) {
             if (field.getName().equals("serialVersionUID")) continue;
             if (field.getName().equals("id")) continue;
-            stringBuffer.append("\n\t\t<if test=\""+field.getName()+" != null\">AND `"+UpperToLine(field.getName())+"` = #{"+field.getName()+"} </if>");
+            stringBuffer.append("\n\t\t<if test=\"" + field.getName() + " != null\">AND `" + UpperToLine(field.getName()) + "` = #{" + field.getName() + "} </if>");
         }
         stringBuffer.append("\n\t</trim>\n</select>");
         System.out.println(stringBuffer.toString());
@@ -129,6 +131,7 @@ public class GenerateMybatisXMLMain {
 
     /**
      * 首字母小写
+     *
      * @param str
      * @return
      */
@@ -141,6 +144,7 @@ public class GenerateMybatisXMLMain {
 
     /**
      * 大写字母转换成“_小写”
+     *
      * @param str
      * @return
      */

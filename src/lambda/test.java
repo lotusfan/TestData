@@ -15,5 +15,7 @@ public class test {
         List list = Arrays.asList("kdjfk", "laskdjflksjfd");
         list.forEach(n -> System.out.println(n));
 
+        System.out.println("a".getBytes().length);
+
     }
 }

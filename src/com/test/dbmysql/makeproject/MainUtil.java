@@ -18,6 +18,11 @@ public class MainUtil {
      */
     public static String LineToUpper(String str) {
 
+        if (str == null) return "";
+
+        //转换标志
+        if(!MainThread.lineflag) return str;
+
         char[] chars = str.toCharArray();
 
         for (int i = 0; i < chars.length; i++) {
@@ -38,9 +43,12 @@ public class MainUtil {
      * @return
      */
     public static String UpperToFirst(String str) {
+
+        if (str == null || str.isEmpty()) return "";
         if (Character.isLowerCase(str.charAt(0))) {
             return str.replaceFirst(str.charAt(0) + "", Character.toUpperCase(str.charAt(0)) + "");
         }
+
         return str;
     }
 
@@ -85,7 +93,7 @@ public class MainUtil {
      * @return
      */
     public static String pathToPackageName(String path) {
-        path = path.substring(14, path.length()-1);
+        path = path.substring(14, path.length() - 1);
         path = path.replaceAll("/", ".");
         return path;
     }

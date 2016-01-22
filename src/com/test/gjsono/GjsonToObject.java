@@ -5,6 +5,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.internal.StringMap;
 
+import java.sql.Timestamp;
+
 /**
  * Created by zhangfan on 2015/4/22.
  */
@@ -41,7 +43,7 @@ public class GjsonToObject {
 //        subBeanTest.setAge(3);
         Gson gson = new Gson();
         try {
-            System.out.println(gson.fromJson("{'age':3, 'sex':null}", SubBeanTest.class));
+            System.out.println(gson.fromJson("{'age':3, 'sex':null, 'timestamp':''}", SubBeanTest.class));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -85,15 +87,15 @@ class SubBeanTest{
     private Integer age;
     private String sex;
     private String sexx;
-
-
-
+    private Timestamp timestamp;
 
     @Override
     public String toString() {
         return "SubBeanTest{" +
                 "age=" + age +
                 ", sex='" + sex + '\'' +
+                ", sexx='" + sexx + '\'' +
+                ", timestamp=" + timestamp +
                 '}';
     }
 }

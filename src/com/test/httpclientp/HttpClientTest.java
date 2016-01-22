@@ -4,7 +4,9 @@ import com.sun.jndi.toolkit.url.Uri;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
@@ -47,22 +49,27 @@ public class HttpClientTest {
     public static void sendRequest(String ip) throws  Exception{
         CloseableHttpClient httpClient = HttpClients.createDefault();
 
-        URI uri = new URIBuilder().setScheme("http")
-                .setHost("223.202.67.48")
-                .setPath("/vote")
-                .setParameter("captcha","")
-                .setParameter("voteString","4|15|16|17|18|")
-                .setParameter("keyString","jcjt2015")
-                .setParameter("jsoncallback","jQuery18003499494264342973_"+System.currentTimeMillis())
-                .setParameter("_", ""+System.currentTimeMillis())
+//        URI uri = new URIBuilder().setScheme("http")
+//                .setHost("223.202.67.48")
+//                .setPath("/vote")
+//                .setParameter("captcha","")
+//                .setParameter("voteString","4|15|16|17|18|")
+//                .setParameter("keyString","jcjt2015")
+//                .setParameter("jsoncallback","jQuery18003499494264342973_"+System.currentTimeMillis())
+//                .setParameter("_", ""+System.currentTimeMillis())
+//                .build();
+        URI uri = new URIBuilder().setScheme("https")
+                .setHost("api.mch.weixin.qq.com")
+                .setPath("//pay/unifiedorder")
                 .build();
 
-
         System.out.println(uri.toString());
-        HttpGet httpGet = new HttpGet(uri);
+//        HttpGet httpGet = new HttpGet(uri);
+        HttpPost httpPost = new HttpPost(uri);
+        httpPost.setEntity(new StringEntity(""));
         CloseableHttpResponse response = null;
         try {
-            response = httpClient.execute(httpGet);
+            response = httpClient.execute(httpPost);
 
             HttpEntity httpEntity = response.getEntity();
             InputStream inputStream = httpEntity.getContent();
